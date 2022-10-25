@@ -115,6 +115,8 @@ services:
       - machine:/opt/cartesi/share/dapp-bin
     environment:
       RUST_LOG: warn
+    logging:
+      driver: "none"
 
   deployer:
     image: juztamau5/rollups-cli:devel
