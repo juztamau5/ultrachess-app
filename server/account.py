@@ -10,7 +10,7 @@ TRANSFER_FUNCTION_SELECTOR = b'\xb4\x83\xaf\xd3\xf4\xca\xed\xc6\xee\xbfD$o\xe5N8
 
 class AccountBalanceManager:
     def __init__(self):
-        self.accounts = {"0x" : {}}
+        self.accounts = {"0x" : {}}  # TODO: Move to disk
     
     def getBalance(self, account, token):
         lowered_account = account.lower()

@@ -1,6 +1,6 @@
 class Elo:
     def __init__(self, k):
-        self.ratingDict = {}
+        self.ratingDict = {} # Move to disk
         self.k = k
     
     def addPlayer(self, name, rating = 1500):

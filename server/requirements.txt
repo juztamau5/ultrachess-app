@@ -5,3 +5,4 @@ gunicorn == 19.9.0
 itsdangerous==2.0.1
 chess==1.8.0
 eth_abi == 3.0.0
+sql30 == 0.2.7

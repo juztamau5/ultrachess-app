@@ -5,7 +5,7 @@ def convert_to_hex(s_input):
 
 class ActionManager:
     def __init__(self):
-        self.actions = {}
+        self.actions = {} # TODO: Move to disk
     
     def process(self, id, value):
         self.actions[str(id)] = value

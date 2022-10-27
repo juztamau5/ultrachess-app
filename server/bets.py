@@ -27,7 +27,7 @@ def CreateBet(sender, timeStamp, gameId, tokenAddress, amount, winningId):
 
 class BetManager:
     def __init__(self):
-        self.games = {}
+        self.games = {} # TODO: Move to disk
     
     def isBettingPhaseOpen(self, gameId, currentTime):
         if not gameId in self.games:

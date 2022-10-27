@@ -15,8 +15,7 @@ from deps import *
 import logging
 import requests
 import json
-import sys
-import string
+import sqlite3
 import traceback
 from eth_abi import decode_abi
 
@@ -31,6 +30,9 @@ rollup_address = "0xF119CC4Ed90379e5E0CC2e5Dd1c8F8750BAfC812"
 logger.info(f"HTTP rollup_server url is {rollup_server}")
 
 lastProcessedBlock = 0
+
+# connects to internal database
+con = sqlite3.connect("data.db")
 
 def format_to_input(index, sender, operation, value, success, timeStamp):
     data_set = {

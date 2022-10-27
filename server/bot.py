@@ -47,7 +47,7 @@ class Bot:
 
 class BotFactory:
     def __init__(self):
-        self.bots = {}
+        self.bots = {}  # TODO: Move to disk
 
     def create(self, owner, binary, timestamp):
         id = str(''.join(random.choices(string.ascii_uppercase + string.digits, k = 10))).lower()
