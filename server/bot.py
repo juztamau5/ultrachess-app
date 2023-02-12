@@ -4,9 +4,14 @@ import random
 import string
 import logging
 import deps
+from eth_abi import encode_abi
+import requests
 
 logging.basicConfig(level="INFO")
 logger = logging.getLogger(__name__)
+
+# TODO
+MINT_BOT_FUNCTION_SELECTOR = b'\xb4\x83\xaf\xd3\xf4\xca\xed\xc6\xee\xbfD$o\xe5N8\xc9^1y\xa5\xec\x9e\xa8\x17@\xec\xa5\xb4\x82\xd1.'
 
 
 class Bot: 
@@ -71,6 +76,27 @@ class BotFactory:
         self.bots[id] = bot
         return True
     
+    def mintNft(self, owner, timestamp, options, rollup_server):
+        id = options["botId"];
+        recipient = options["recipient"]
+        bot = self.bots[id]
+
+        # TODO: Set bot owner to recipient
+
+        # Encode a function call
+        function_payload = MINT_BOT_FUNCTION_SELECTOR + encode_abi(['string','address'], [id, recipient])
+
+        """
+        # Post voucher executing the transfer
+        voucher = {"address": botNftAddress, "payload": "0x" + function_payload.hex()}
+        logger.info(f"Issuing voucher {voucher}")
+
+        response = requests.post(rollup_server + "/voucher", json=voucher)
+        logger.info(f"Received voucher status {response.status_code} body {response.content}")
+        """
+
+        return True
+
     def getOwner(self, id):
         return self.bots[id].owner
     

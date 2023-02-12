@@ -506,6 +506,20 @@ export function useActionCreator(): (info: TransactionInfo) => Promise<[Action, 
                     input = appendNumberToUInt8Array(id, input)
                     result = await contract.addInput(input)
                     break;                
+                case TransactionType.MINT_BOT_NFT:
+                {
+                    let { botId, recipient } = info
+                    input = ethers.utils.toUtf8Bytes(`{
+                        "op": "mintBot",
+                        "value": {
+                            "botId": "${botId}",
+                            "recipient": "${recipient}"
+                        }
+                    }`)
+                    input = appendNumberToUInt8Array(id, input)
+                    result = await contract.addInput(input)
+                    break;
+                }
                 case TransactionType.CREATE_GAME_INPUT:
                     const { name, isBot, wagerAmount, wagerTokenAddress, botId1, botId2, playerId, bettingDuration} = info
                     input = ethers.utils.toUtf8Bytes(`{
