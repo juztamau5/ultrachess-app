@@ -258,7 +258,7 @@ function updateGameState(dispatch, payload){
 }
   
 async function poll(dispatch) {
-    await delay(500);
+    await delay(5000);
     var instance = axios.create({baseURL: SERVER_URL })
     var input = `{
         "type": "state", 
