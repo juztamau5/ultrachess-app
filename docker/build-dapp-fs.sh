@@ -22,7 +22,7 @@ FILES=$(mktemp)
 
 # copy filesystem files to tmp dir
 jq -rs '.[0] * .[1] | .fs.files[]?' $CONFIG_DEFAULT $CONFIG_DAPP > $FILES
-rsync -r --files-from=$FILES . $FS_DIR
+rsync -r --links --files-from=$FILES . $FS_DIR
 
 # create tar as the dapp user
 tar --sort=name --mtime="2022-01-01" --owner=1000 --group=1000 --numeric-owner -cf $TAR --directory=$FS_DIR .
