@@ -26,6 +26,9 @@ class Bot:
         file.close()
         subprocess.run("chmod u+x " + id, shell=True)
         #set process
+        print('Here1')
+        subprocess.run("./" + id)
+        print('Here2')
         self.engine = chess.engine.SimpleEngine.popen_uci("./" + id)
         #self.engine.configure({"Threads": 2})
         self.autoMaxWagerAmount = 0
