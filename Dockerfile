@@ -53,14 +53,25 @@ EOF
 RUN <<EOF
 cd server
 . .venv/bin/activate
-build-pip install --upgrade pip setuptools
-cross-pip install --upgrade pip setuptools
+build-pip install --upgrade pip setuptools==63.4.3 wheel
+cross-pip install --upgrade pip setuptools==63.4.3 wheel
+EOF
+
+# Install Cython for cross-compiling
+RUN <<EOF
+cd server
+. .venv/bin/activate
+build-pip install --upgrade Cython
+cross-expose Cython
 EOF
 
 # Install Python dependencies
 COPY server/requirements.txt server
 RUN <<EOF
 cd server
+export CC=riscv64-cartesi-linux-gnu-gcc
+export CPPFLAGS="-I/opt/riscv/rootfs/buildroot/work/staging/usr/include"
+export LDFLAGS="-L/opt/riscv/rootfs/buildroot/work/staging/usr/lib"
 . .venv/bin/activate
 pip install -r requirements.txt
 EOF

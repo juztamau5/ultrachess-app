@@ -1,6 +1,6 @@
 {
   "fs": {
-    "files": ["bin", "entrypoint.sh", "server"],
+    "files": [".env/cross", "bin", "entrypoint.sh", "server"],
     "size": 256000
   }
 }

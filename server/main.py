@@ -37,6 +37,10 @@ lastProcessedBlock = 0
 # Initialize IPFS
 subprocess.run(['ipfs', 'init'])
 
+# Test numpy
+import numpy as np
+print(np.sqrt(2))
+
 def format_to_input(index, sender, operation, value, success, timeStamp):
     data_set = {
         "index": index,
