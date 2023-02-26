@@ -70,7 +70,7 @@ COPY server/requirements.txt server
 RUN <<EOF
 cd server
 export CC=riscv64-cartesi-linux-gnu-gcc
-export CPPFLAGS="-I/opt/riscv/rootfs/buildroot/work/staging/usr/include"
+export CFLAGS="-I/opt/riscv/rootfs/buildroot/work/staging/usr/include"
 export LDFLAGS="-L/opt/riscv/rootfs/buildroot/work/staging/usr/lib"
 . .venv/bin/activate
 pip install -r requirements.txt
