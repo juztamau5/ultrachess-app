@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) 2022-2023 Ultrachess team
+ * This file is part of Ultrachess - https://github.com/Ultrachess/app
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * See the file LICENSE for more information.
+ */
+
 import { blackA, green, mauve, violet } from "@radix-ui/colors";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";

@@ -333,6 +333,12 @@ def handle_advance(data):
         except Exception:
             traceback.print_exc()
             success = False
+    elif operator == "mintBotNft":
+        try:
+            botManager.mintNft(sender, timeStamp, value, rollup_server)
+        except Exception:
+            traceback.print_exc()
+            success = False
     elif operator == "createTourney":
         try:
             tournamentManager.create(sender, value)
