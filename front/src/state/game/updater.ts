@@ -260,7 +260,7 @@ function useNotices(): PartialNotice[] | undefined {
     const fetchNotices = async () => {
       setNotices(await getNotices(DEFAULT_GRAPHQL_URL, {}));
       await delay(DEFAULT_GRAPHQL_POLL_TIME);
-      await fetchNotices();
+      //await fetchNotices();
     };
     fetchNotices().catch(console.error);
   }, []);
@@ -284,7 +284,7 @@ export function useNotifications(): Notification[] | undefined {
       //}
 
       await delay(DEFAULT_GRAPHQL_POLL_TIME);
-      await fetchNotices();
+      //await fetchNotices();
     };
     fetchNotices().catch(console.error);
   }, []);
