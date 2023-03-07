@@ -199,7 +199,7 @@ export const USDC_ADDRESS_ON_NETWORKS = {
   69: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
   420: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
   421611: "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
-  31337: CartesiToken.address,
+  31337: "0xea753456f554F59f70CD0E078FBd2FED058Cedcc",
 };
 
 export const DEFAULT_NETWORK_URI = CHAINS[1].networkImg;
