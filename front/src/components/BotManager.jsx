@@ -1,13 +1,20 @@
 import * as React from "react";
+import { Spacer } from "@nextui-org/react";
 import BotUploader from "./BotUploader";
 import { useSelector } from "react-redux";
 import BotListView from "./list/BotList";
 import BotGameCreator from "./BotGameCreator";
 import { useAllBots } from "../state/game/hooks";
+import { useLpNfts } from "../state/game/hooks";
 import Flex from "./ui/Flex";
 import { Text } from "./ui/Text";
 import { styled } from "@stitches/react";
 import ModalCreateBot from "./ModalCreateBot";
+import ModalMintStables from "./ModalMintStables";
+import ModalMintLpNft from "./ModalMintLpNft";
+import ModalDepositLpNft from "./ModalDepositLpNft";
+import LpNftListView from "./list/LpNftList";
+import ModalNewDepositFunds from "./ModalNewDepositFunds";
 import Separator from "./ui/Separator";
 import { ZoomOutIcon, StitchesLogoIcon } from "@radix-ui/react-icons";
 import { violet } from "@radix-ui/colors";
@@ -15,6 +22,7 @@ import Button from "./ui/Button";
 
 export default () => {
   const bots = useAllBots();
+  const lpNfts = useLpNfts();
 
   return (
     <div className="body">
@@ -49,6 +57,37 @@ export default () => {
             </div>
             <Separator />
             <BotListView bots={bots} />
+            <Separator />
+            <div className="contentHeader">
+              <Label>LP NFTs</Label>
+              <RightSlot>
+                <ModalMintStables
+                  triggerElement={
+                    <Button shadow>
+                      <Text>Mint stables</Text>
+                    </Button>
+                  }
+                />
+                <Spacer x={1} />
+                <ModalMintLpNft
+                  triggerElement={
+                    <Button shadow>
+                      <Text>Mint LP NFT</Text>
+                    </Button>
+                  }
+                />
+                <Spacer x={1} />
+                <ModalDepositLpNft
+                  triggerElement={
+                    <Button shadow>
+                      <Text>Deposit LP NFT</Text>
+                    </Button>
+                  }
+                />
+              </RightSlot>
+            </div>
+            <Separator />
+            <LpNftListView lpNfts={lpNfts} />
           </div>
         </div>
       </div>

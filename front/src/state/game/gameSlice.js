@@ -100,6 +100,7 @@ export const gameSlice = createSlice({
     },
     games: {},
     bots: {},
+    lpNfts: {},
     elo: {},
     accounts: {},
     tournaments: {},
@@ -137,11 +138,15 @@ export const gameSlice = createSlice({
     setBots: (state, action) => {
       state.bots = action.payload;
     },
+    setLpNfts: (state, action) => {
+      state.lpNfts = action.payload;
+    },
     setAppState: (state, action) => {
       var {
         elo,
         game,
         bots,
+        lpNfts,
         accounts,
         lastProcessedBlock,
         actionList,
@@ -154,6 +159,7 @@ export const gameSlice = createSlice({
         !deepEqual(state.elo, elo) ||
         !deepEqual(state.games, game) ||
         !deepEqual(state.bots, bots) ||
+        !deepEqual(state.lpNfts, lpNfts) ||
         !deepEqual(state.accounts, accounts) ||
         !deepEqual(state.tournaments, tournaments) ||
         !deepEqual(state.challenges, challenges) ||
@@ -166,6 +172,7 @@ export const gameSlice = createSlice({
       state.elo = elo;
       state.games = game;
       state.bots = bots;
+      state.lpNfts = lpNfts;
       state.accounts = accounts;
       state.tournaments = tournaments;
       state.lastProcessedBlock = lastProcessedBlock;
@@ -275,6 +282,7 @@ export const {
   setElo,
   setAccounts,
   setBots,
+  setLpNfts,
   updateGame,
   addGame,
   removeGame,
