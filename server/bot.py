@@ -23,6 +23,7 @@ import notification
 logging.basicConfig(level="INFO")
 logger = logging.getLogger(__name__)
 
+
 class Bot:
     def __init__(self, id, owner, binary, timestamp):
         self.id = id
@@ -102,7 +103,7 @@ class BotFactory:
 
     def getOwner(self, id):
         return self.bots[id].owner
-    
+
     def getBot(self, id):
         if id not in self.bots:
             return None
@@ -126,7 +127,7 @@ class BotManager:
         self.pending_game_moves = []
         self.pending_games = []
         self.last_step_timestamp = 0
-        self.time_allowed = 1.0 #seconds
+        self.time_allowed = 1.0  # seconds
 
     def start(self):
         self.time_allowed = 1.0
@@ -142,28 +143,31 @@ class BotManager:
 
             opponent = factory.bots[opponentId]
 
-            if (opponent.owner.lower() != mainBot.owner.lower() and
-                opponent.autoWagerTokenAddress.lower() == mainBot.autoWagerTokenAddress.lower() and
-                opponent.autoMaxWagerAmount <= mainBot.autoMaxWagerAmount):
-                
+            if (
+                opponent.owner.lower() != mainBot.owner.lower()
+                and opponent.autoWagerTokenAddress.lower()
+                == mainBot.autoWagerTokenAddress.lower()
+                and opponent.autoMaxWagerAmount <= mainBot.autoMaxWagerAmount
+            ):
+
                 eligible_opponents.append(opponentId)
 
         if not eligible_opponents:
             return False
 
         if botId not in self.last_challenged:
-            self.last_challenged[botId] = {'opponents': [], 'index': 0}
+            self.last_challenged[botId] = {"opponents": [], "index": 0}
 
-        last_opponents = self.last_challenged[botId]['opponents']
-        last_index = self.last_challenged[botId]['index']
+        last_opponents = self.last_challenged[botId]["opponents"]
+        last_index = self.last_challenged[botId]["index"]
 
         if last_opponents != eligible_opponents:
-            self.last_challenged[botId]['opponents'] = eligible_opponents
+            self.last_challenged[botId]["opponents"] = eligible_opponents
             last_index = 0
         else:
             last_index = (last_index + 1) % len(eligible_opponents)
 
-        self.last_challenged[botId]['index'] = last_index
+        self.last_challenged[botId]["index"] = last_index
 
         return eligible_opponents[last_index]
 
@@ -177,14 +181,17 @@ class BotManager:
 
         for gameId in list(self.pending_games):
             game = deps.matchMaker.games[gameId]
-            (timeSpent, finished) = game.runFixed(timestamp, self.time_allowed / num_games)
+            (timeSpent, finished) = game.runFixed(
+                timestamp, self.time_allowed / num_games
+            )
             totalTimeSpent += timeSpent
             if finished:
                 finished_games.append(gameId)
-        
-        self.time_allowed -= totalTimeSpent
-        self.pending_games = [gameId for gameId in self.pending_games if gameId not in finished_games]
 
+        self.time_allowed -= totalTimeSpent
+        self.pending_games = [
+            gameId for gameId in self.pending_games if gameId not in finished_games
+        ]
 
     def runPendingMoves(self, timestamp):
         logger.info("bot: attempting running pending moves")
@@ -238,7 +245,7 @@ class BotManager:
         self.runPendingMoves(timestamp)
 
     def step(self, sender, timestamp, rand, factory, matchmaker):
-        #log random number
+        # log random number
         logger.info("bot stepping with: random number: " + str(rand))
         # handle all autonomous matchmaking between bots
         self.__matchMake(sender, timestamp, rand, factory, matchmaker)
@@ -257,7 +264,11 @@ class BotManager:
         autoBattleEnabled = (
             options["autoBattleEnabled"] if ("autoBattleEnabled" in options) else False
         )
-        name = options["name"] if ("name" in options) else ("bot" + str(botId) if botId else "")
+        name = (
+            options["name"]
+            if ("name" in options)
+            else ("bot" + str(botId) if botId else "")
+        )
 
         bot = factory.bots[botId]
         if sender.lower() == bot.owner.lower():

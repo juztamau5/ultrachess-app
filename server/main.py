@@ -179,14 +179,14 @@ def handle_advance(data):
     except Exception:
         traceback.print_exc()
         pass
-    
+
     payload = data["payload"][2:]
     try:
         payload = data["payload"][10:]
     except Exception:
         traceback.print_exc()
         pass
-    
+
     depositPayload = data["payload"][2:]
     sender = metadata["msg_sender"]
     epochIndex = metadata["epoch_index"]
@@ -256,20 +256,20 @@ def handle_advance(data):
         # Is uploading bot binary
         operator = "createBot"
 
-        #If payload is exactly 16 bytes, it is a bot step
+        # If payload is exactly 16 bytes, it is a bot step
         if len(payload) == 32:
             operator = "botStep"
             # 16 bytes into number
             value = int(payload, 16)
-        
-        #If payload is blank, it is a bot step
+
+        # If payload is blank, it is a bot step
         if len(payload) == 0:
             operator = "botStep"
             # 16 bytes into number
             value = 0
 
     botManager.start()
-    
+
     # set timestamp
     matchMaker.setTimestamp(timeStamp)
     set_timestamp(timeStamp)
@@ -408,7 +408,7 @@ def handle_advance(data):
     elif operator == "botStep":
         try:
             botManager.step(sender, timeStamp, value, botFactory, matchMaker)
-            
+
         except Exception:
             traceback.print_exc()
             success = False

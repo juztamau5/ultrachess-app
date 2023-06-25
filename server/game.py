@@ -146,7 +146,7 @@ class Game:
         winningId = p1 if score1 > score2 else p2 if score2 > score1 else "DRAW"
         deps.betManager.end(self.id, winningId)
 
-        #set elo change
+        # set elo change
         self.eloChange[p1] = deps.eloManager.getElo(p1) - prevElo1
         self.eloChange[p2] = deps.eloManager.getElo(p2) - prevElo2
 
@@ -328,7 +328,7 @@ class Game:
             (uci, botMoveStat) = bot.run(board, timestamp)
             self.move(botId, timestamp, uci, botMoveStat)
         return True
-    
+
     def runFixed(self, timestamp, maxTimePerSession):
         timeSpent = 0
 
@@ -353,11 +353,10 @@ class Game:
 
         return (timeSpent, self.isGameEnd())
 
-
     ##def runMatches(self, matchCount):
     ##    for i in range(matchCount):
 
-    def getState(self): 
+    def getState(self):
         return {
             "id": self.id,
             "players": self.players,

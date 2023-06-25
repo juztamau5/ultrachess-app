@@ -32,6 +32,7 @@ def CreateBotOffer(sender, offerId, timestamp, botId, price, token, owner):
         "owner": owner,
     }
 
+
 def CreateListing(sender, botId, price, token, timestamp):
     return {
         "sender": sender,
@@ -47,7 +48,7 @@ class BotMarketPlaceManager:
         self.offers = {}
         self.prices = {}
 
-    #lists a bot for sale
+    # lists a bot for sale
     def create_price(self, sender, timestamp, options):
         if "botId" not in options or "price" not in options or "token" not in options:
             return False
@@ -56,27 +57,26 @@ class BotMarketPlaceManager:
         price = options["price"]
         token = options["token"]
 
-        #make sure bot exists in bot factory
+        # make sure bot exists in bot factory
         if "0x" in botId or deps.botFactory.getBot(botId) == None:
             logger.info("failed to create price, bot does not exist")
             return False
 
         owner = deps.botFactory.getOwner(botId)
 
-        #make sure sender is the owner
+        # make sure sender is the owner
         if sender.lower() != owner.lower():
             logger.info("failed to create price, sender is not owner")
             return False
-        
-        #if price is 0 or less, remove price
+
+        # if price is 0 or less, remove price
         if price <= 0:
             if botId in self.prices:
                 del self.prices[botId]
             return True
-        
+
         self.prices[botId] = CreateListing(sender, botId, price, token, timestamp)
         return True
-
 
     def create_offer(self, sender, timestamp, options):
         if "botId" not in options or "price" not in options or "token" not in options:
@@ -119,7 +119,7 @@ class BotMarketPlaceManager:
             )
         )
 
-        #if offer greater than or equal to price, auto accept offer
+        # if offer greater than or equal to price, auto accept offer
         if botId in self.prices:
             listing = self.prices[botId]
             if price >= listing["price"]:
