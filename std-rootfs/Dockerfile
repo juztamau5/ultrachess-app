@@ -3,6 +3,7 @@
 FROM cartesi/toolchain:0.14.0 as toolchain
 FROM cartesi/rootfs:0.17.0 as rootfs
 FROM cartesi/server-manager:0.7.0 as server-manager
+FROM juztamau5/rollups-hardhat:0.9.1 as rollups-hardhat
 
 FROM rootfs as toolchain-python
 
@@ -75,6 +76,19 @@ RUN while read DEP; do wget -O $DEP; done < dependencies
 RUN sha1sum -c shasumfile
 
 
+# Deploy contracts locally
+FROM rollups-hardhat AS local-deployments-stage
+
+RUN sh -c "npx hardhat deploy --write true --network hardhat"
+ENTRYPOINT [ "/bin/sh" ]
+
+# Download known testnet/mainet deployments
+FROM busybox as deployments-stage
+
+WORKDIR /opt/cartesi/share
+COPY --from=machine-core opt/cartesi/share/rollups.tgz ./
+RUN tar -xzvf ./rollups.tgz
+
 # stage to build the dapp ext2 filesystem
 FROM toolchain as fs-stage
 
@@ -87,6 +101,8 @@ EOF
 
 WORKDIR /opt/cartesi/dapp
 COPY --from=dapp /opt/cartesi/dapp .
+COPY --from=deployments /opt/cartesi/share/package/deployments ./deployments
+COPY --from=local-deployments /app/rollups/deployments/hardhat/* ./deployments/localhost/
 
 COPY build-dapp-fs.sh /usr/local/bin
 COPY default.json /opt/cartesi/
