@@ -30,9 +30,9 @@ services:
           "-f",
           "/opt/cartesi/share/deployments/localhost.json"
         ]
-      interval: 30s
+      interval: 10s
       timeout: 30s
-      retries: 5
+      retries: 15
     volumes:
       - blockchain-data:/opt/cartesi/share/deployments
       - ./deployments:/app/rollups/deployments
