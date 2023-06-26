@@ -1,3 +1,0 @@
-[submodule "common-contracts"]
-	path = common-contracts
-	url = https://github.com/Ultrachess/contracts.git
